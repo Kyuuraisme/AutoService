@@ -1,97 +1,154 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# AutoService
 
-# Getting Started
+AutoService adalah aplikasi mobile berbasis React Native untuk mencatat informasi kendaraan dan hasil pemeriksaan suku cadang pada proses servis. Aplikasi ini menyediakan tampilan profil kendaraan, pengelolaan poin garansi servis, serta pencatatan komponen yang perlu diperiksa atau diganti.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## Fitur
 
-## Step 1: Start Metro
+- Menampilkan informasi kendaraan, pemilik, model, nomor plat, dan gambar kendaraan
+- Menambahkan dan menampilkan poin garansi servis
+- Menampilkan daftar hasil pemeriksaan sparepart beserta tingkat urgensi
+- Menambahkan catatan servis komponen baru
+- Menandai komponen baru sebagai "Perlu Ganti"
+- Tampilan sederhana dan responsif menggunakan komponen React Native
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+## Teknologi
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+- React Native 0.88.1
+- React 19.3.0
+- React Native Safe Area Context 5.11.0
+- JavaScript dan JSX
+- TypeScript untuk konfigurasi pengujian
+- Jest dan React Test Renderer
 
-```sh
-# Using npm
-npm start
+## Struktur Proyek
 
-# OR using Yarn
-yarn start
+```text
+AutoService/
+├── App.jsx                         
+├── src/
+│   └── components/
+│       ├── vehicleHeader.jsx       
+│       ├── statBadge.jsx           
+│       └── inspectionItemCard.jsx  
+├── __tests__/
+│   └── App.test.tsx                
+├── android/                        
+├── ios/                            
+├── package.json
+└── README.md
 ```
 
-## Step 2: Build and run your app
+## Persyaratan
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+Pastikan perangkat pengembangan telah memiliki:
+
+- Node.js 22.11.0 atau lebih baru
+- npm atau Yarn
+- Android Studio dan Android SDK untuk pengembangan Android
+- Android Emulator atau perangkat Android dengan mode USB debugging
+- Xcode dan CocoaPods untuk pengembangan iOS, khususnya pada macOS
+
+Panduan instalasi React Native dapat dibaca di [React Native Environment Setup](https://reactnative.dev/docs/set-up-your-environment).
+
+## Instalasi
+
+1. Masuk ke direktori proyek:
+
+   ```sh
+   cd AutoService
+   ```
+
+2. Pasang seluruh dependensi:
+
+   ```sh
+   npm install
+   ```
+
+## Menjalankan Aplikasi
 
 ### Android
 
-```sh
-# Using npm
-npm run android
+1. Jalankan Android Emulator atau hubungkan perangkat Android.
+2. Jalankan Metro bundler pada terminal:
 
-# OR using Yarn
-yarn android
-```
+   ```sh
+   npm start
+   ```
+
+3. Pada terminal kedua, jalankan aplikasi:
+
+   ```sh
+   npm run android
+   ```
+
+Untuk melakukan reload aplikasi:
+
+- Tekan <kbd>R</kbd> dua kali pada emulator
+- Tekan <kbd>Ctrl</kbd> + <kbd>M</kbd> untuk membuka developer menu
 
 ### iOS
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+Karena pengembangan iOS memerlukan macOS, pasang CocoaPods terlebih dahulu:
 
 ```sh
 bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
 bundle exec pod install
 ```
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+Kemudian jalankan aplikasi:
 
 ```sh
-# Using npm
 npm run ios
-
-# OR using Yarn
-yarn ios
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+## Pengujian
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+Menjalankan seluruh pengujian Jest:
 
-## Step 3: Modify your app
+```sh
+npm test
+```
 
-Now that you have successfully run the app, let's make changes!
+Menjalankan pengujian sekali tanpa mode watch:
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+```sh
+npm test -- --watchAll=false
+```
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+## Lint
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+Periksa kualitas kode menggunakan ESLint:
 
-## Congratulations! :tada:
+```sh
+npm run lint
+```
 
-You've successfully run and modified your React Native App. :partying_face:
+## Penggunaan
 
-### Now what?
+1. Buka aplikasi untuk melihat informasi kendaraan.
+2. Tekan **Tambah Poin Garansi Servis** untuk menambah nilai poin garansi.
+3. Masukkan nama komponen pada kolom pemeriksaan suku cadang.
+4. Tekan **Tambah Catatan Servis** untuk menambahkan komponen ke daftar pemeriksaan.
+5. Komponen yang baru ditambahkan akan memiliki status **Perlu Ganti** beserta catatan pemeriksaan.
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+## Build Android
 
-# Troubleshooting
+Untuk membuat APK debug:
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+```sh
+cd android
+gradlew assembleDebug
+```
 
-# Learn More
+Hasil build dapat ditemukan di:
 
-To learn more about React Native, take a look at the following resources:
+```text
+android/app/build/outputs/apk/debug/app-debug.apk
+```
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+## Referensi
+
+- [React Native](https://reactnative.dev)
+- [React Native CLI](https://github.com/react-native-community/cli)
+- [React](https://react.dev)
+- [Jest](https://jestjs.io)

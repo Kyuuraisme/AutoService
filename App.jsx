@@ -1,51 +1,57 @@
-import React, { useState } from 'react'
-import { View, Text, TextInput, TouchableOpacity,} from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import React, { useState } from 'react';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  ScrollView,
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-import VehicleHeader from './src/components/vehicleHeader'
-import StatBadge from './src/components/statBadge'
-import InspectionItemCard from './src/components/inspectionItemCard'
+import VehicleHeader from './src/components/vehicleHeader';
+import StatBadge from './src/components/statBadge';
+import InspectionItemCard from './src/components/inspectionItemCard';
 
 const App = () => {
-  const [Kendaraan] = useState([
+  const dataKendaraan = [
     {
       id: 1,
       platNomor: '12345678',
       modelKendaraan: 'Toyota Avanza',
       namaPemilik: 'Neena pakai e',
-      carImageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8mEKsXoW8u9VVa88EpIYfEu8oQueWKF3j_JzhwTnDUA&s=10',
+      carImageUrl:
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8mEKsXoW8u9VVa88EpIYfEu8oQueWKF3j_JzhwTnDUA&s=10',
     },
-  ])
-
-  const [hitung, setHitung] = useState(0)
-  const [namaSparepart, setNamaSparepart] = useState('')
-  const [listInspeksi, setListInspeksi] = useState([
+  ];
+  const dataSparepart = [
     {
       id: 1,
       NamaSparepart: 'Filter Oli',
       LevelUrgensi: 'Aman',
       Catatan: 'Belum perlu diganti',
     },
-  ])
+  ];
+  const [Kendaraan] = useState(dataKendaraan);
+  const [hitung, setHitung] = useState(0);
+  const [namaSparepart, setNamaSparepart] = useState('');
+  const [listInspeksi, setListInspeksi] = useState(dataSparepart);
 
   const tambahCatatanServis = () => {
-    const nama = namaSparepart.trim()
-    if (nama === '') return
-
-    const dataBaru = {
-      id: Date.now(),
-      NamaSparepart: nama,
-      LevelUrgensi: 'Perlu Ganti',
-      Catatan: 'Periksa dan segera lakukan penggantian',
-    }
-
-    setListInspeksi(prevList => [...prevList, dataBaru])
-    setNamaSparepart('')
-  }
+    setListInspeksi([
+      ...listInspeksi,
+      {
+        id: Date.now(),
+        NamaSparepart: namaSparepart,
+        LevelUrgensi: 'Perlu Ganti',
+        Catatan: 'Periksa dan segera lakukan penggantian',
+      },
+    ]);
+    setNamaSparepart('');
+  };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#f5f7fa' ,}}>
-      <View style={{ padding: 16 }}>
+    <SafeAreaView style={{ flex: 1 }}>
+      <View style={{ height: '19%', padding: 16, backgroundColor: '#ffffff' }}>
         {Kendaraan.map(kendaraan => (
           <VehicleHeader
             key={kendaraan.id}
@@ -55,8 +61,21 @@ const App = () => {
             carImageUrl={kendaraan.carImageUrl}
           />
         ))}
+      </View>
 
-        <View style={{ marginTop: 16 }}>
+      <View
+        style={{
+          paddingHorizontal: 16,
+          paddingTop: 16,
+          backgroundColor: '#1269cc',
+          height: '80%',
+          width: '98%',
+          borderTopRightRadius: 16,
+          borderBottomRightRadius: 16,
+          paddingTop: 50,
+        }}
+      >
+        <View style={{ alignItems: 'center', marginBottom: 16 }}>
           <StatBadge
             label="Poin Garansi Servis"
             hitung={hitung}
@@ -64,40 +83,54 @@ const App = () => {
           />
         </View>
 
-        <View style={{ marginTop: 16 }}>
-          <Text style={{ fontSize: 18, fontWeight: '700', marginBottom: 10 }}>
-            Pemeriksaan Suku Cadang
-          </Text>
+        <Text
+          style={{
+            fontSize: 18,
+            fontWeight: '700',
+            marginBottom: 10,
+            marginLeft: 16,
+            color: '#ffffff',
+          }}
+        >
+          Pemeriksaan Suku Cadang
+        </Text>
 
-          <TextInput
-            value={namaSparepart}
-            onChangeText={setNamaSparepart}
-            placeholder="Nama komponen/sparepart"
-            style={{
-              backgroundColor: '#ffffff',
-              borderWidth: 1,
-              borderColor: '#dfe3e8',
-              borderRadius: 8,
-              paddingHorizontal: 12,
-              marginBottom: 8,
-            }}
-          />
+        <TextInput
+          value={namaSparepart}
+          onChangeText={setNamaSparepart}
+          placeholder="Nama komponen/sparepart"
+          style={{
+            backgroundColor: '#ffffff',
+            borderWidth: 1,
+            borderColor: '#dfe3e8',
+            borderRadius: 8,
+            alignSelf: 'center',
+            marginBottom: 10,
+            width: '90%',
+            height: 46,
+            paddingHorizontal: 12,
+          }}
+        />
 
+        <View style={{ width: '90%', alignSelf: 'center', marginBottom: 12 }}>
           <TouchableOpacity
             onPress={tambahCatatanServis}
+            activeOpacity={0.8}
             style={{
-              backgroundColor: '#263238',
+              backgroundColor: '#ffc54a',
               borderRadius: 8,
-              paddingVertical: 12,
+              height: 46,
+              justifyContent: 'center',
               alignItems: 'center',
-              marginBottom: 12,
             }}
           >
-            <Text style={{ color: '#ffffff', fontWeight: '700' }}>
+            <Text style={{ color: '#303030', fontWeight: '700' }}>
               Tambah Catatan Servis
             </Text>
           </TouchableOpacity>
+        </View>
 
+        <View style={{ paddingTop: 2 }}>
           {listInspeksi.map(item => (
             <InspectionItemCard
               key={item.id}
@@ -109,7 +142,7 @@ const App = () => {
         </View>
       </View>
     </SafeAreaView>
-  )
-}
+  );
+};
 
-export default App
+export default App;
