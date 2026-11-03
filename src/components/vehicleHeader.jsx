@@ -1,12 +1,7 @@
 import { Text, View, Image } from 'react-native';
 import React from 'react';
 
-const vehicleHeader = ({
-  PlatNomor,
-  ModelKendaraan,
-  NamaPemilik,
-  carImageUrl,
-}) => {
+const vehicleHeader = ({ PlatNomor, ModelKendaraan, NamaPemilik, carImageUrl,}) => {
   return (
     <View
       style={{

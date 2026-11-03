@@ -4,7 +4,6 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  ScrollView,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -28,12 +27,13 @@ const App = () => {
       id: 1,
       NamaSparepart: 'Filter Oli',
       LevelUrgensi: 'Aman',
-      Catatan: 'Belum perlu diganti',
+      Catatan: 'Filter oli dalam kondisi baik',
     },
   ];
   const [Kendaraan] = useState(dataKendaraan);
   const [hitung, setHitung] = useState(0);
   const [namaSparepart, setNamaSparepart] = useState('');
+  const [catatan, setCatatan] = useState('');
   const [listInspeksi, setListInspeksi] = useState(dataSparepart);
 
   const tambahCatatanServis = () => {
@@ -43,11 +43,15 @@ const App = () => {
         id: Date.now(),
         NamaSparepart: namaSparepart,
         LevelUrgensi: 'Perlu Ganti',
-        Catatan: 'Periksa dan segera lakukan penggantian',
+        Catatan: catatan,
       },
     ]);
     setNamaSparepart('');
+    setCatatan('');
   };
+  const tambahPoinGaransiServis = () => {
+    setHitung(hitung + 1);
+  }
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -66,7 +70,6 @@ const App = () => {
       <View
         style={{
           paddingHorizontal: 16,
-          paddingTop: 16,
           backgroundColor: '#1269cc',
           height: '80%',
           width: '98%',
@@ -79,7 +82,7 @@ const App = () => {
           <StatBadge
             label="Poin Garansi Servis"
             hitung={hitung}
-            onPress={() => setHitung(prevHitung => prevHitung + 1)}
+            onPress={tambahPoinGaransiServis}
           />
         </View>
 
@@ -99,6 +102,22 @@ const App = () => {
           value={namaSparepart}
           onChangeText={setNamaSparepart}
           placeholder="Nama komponen/sparepart"
+          style={{
+            backgroundColor: '#ffffff',
+            borderWidth: 1,
+            borderColor: '#dfe3e8',
+            borderRadius: 8,
+            alignSelf: 'center',
+            marginBottom: 10,
+            width: '90%',
+            height: 46,
+            paddingHorizontal: 12,
+          }}
+        />
+        <TextInput
+          value={catatan}
+          onChangeText={setCatatan}
+          placeholder="Catatan pemeriksaan"
           style={{
             backgroundColor: '#ffffff',
             borderWidth: 1,

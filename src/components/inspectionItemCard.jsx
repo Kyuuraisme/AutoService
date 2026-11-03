@@ -16,7 +16,7 @@ const inspectionItemCard = ({ NamaSparepart, LevelUrgensi, Catatan }) => {
       }}
     >
       <View style={{ flexDirection: 'row', width: '90%' }}>
-        <Text style={{ fontWeight: '700', flex: 1,textColor:'#303030' }}>{NamaSparepart}</Text>
+        <Text style={{ fontWeight: '700', flex: 1, color: '#303030' }}>{NamaSparepart}</Text>
         <Text
           style={{
             color: LevelUrgensi === 'Aman' ? '#1269cc' : '#780000',
